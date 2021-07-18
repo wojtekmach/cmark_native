@@ -8,7 +8,7 @@ defmodule Cmark.Nif do
   @on_load :init
 
   def init do
-    path = :code.priv_dir(:cmark_native_darwin_aarch64) ++ '/cmark'
+    path = :code.priv_dir(:cmark_native_darwin_x86_64) ++ '/cmark'
     :ok = :erlang.load_nif(path, 0)
   end
 
