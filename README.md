@@ -19,7 +19,7 @@ This repository contains the CmarkNative package itself as well as a package for
   * [`packages/cmark_native_linux_aarch64`](packages/cmark_native_linux_aarch64)
   * [`packages/cmark_native_linux_x86_64`](packages/cmark_native_linux_x86_64)
 
-Each target package just contains the shared library, e.g.: <https://github.com/wojtekmach/cmark_native/blob/main/packages/cmark_native_darwin_aarch64/priv/cmark.so>.
+Each target package contains the shared library, e.g.: <https://github.com/wojtekmach/cmark_native/blob/main/packages/cmark_native_darwin_aarch64/priv/cmark.so>.
 
 When building `cmark_native` package, we simply pick the correct Mix target: <https://github.com/wojtekmach/cmark_native/blob/main/mix.exs#L1>.
 
