@@ -23,7 +23,7 @@ Each target package contains the shared library, e.g.: <https://github.com/wojte
 
 When building `cmark_native` package, we simply pick the correct Mix target: <https://github.com/wojtekmach/cmark_native/blob/main/mix.exs#L1>.
 
-If we start publishing this to Hex, we'd change path dependencies to Hex dependencies and the project directory structure would become flatter:
+If we start publishing this to Hex we'd probably keep the monorepo:
 
     ./
       cmark_native/
@@ -31,6 +31,8 @@ If we start publishing this to Hex, we'd change path dependencies to Hex depende
       cmark_native_darwin_x86_64/
       cmark_native_linux_aarch64/
       cmark_native_linux_x86_64/
+
+but of course publish each piece as a separate Hex package.
 
 ## License
 
