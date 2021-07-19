@@ -25,6 +25,11 @@ defmodule CmarkNative.MixProject do
         exclude: [
           Cmark.Nif
         ]
+      ],
+      package: [
+        organization: "hex",
+        links: %{},
+        licenses: ["Apache-2.0"]
       ]
     ]
   end
@@ -44,7 +49,7 @@ defmodule CmarkNative.MixProject do
     ]
 
     for target <- targets do
-      {:"cmark_native_#{target}", path: "packages/cmark_native_#{target}", targets: [target]}
+      {:"cmark_native_#{target}", ">= 0.0.0", organization: "hex", targets: [target]}
     end
   end
 end
