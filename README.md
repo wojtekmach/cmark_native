@@ -27,7 +27,7 @@ Each target package contains the shared library, e.g.: <https://github.com/wojte
 
 This setup works when `cmark_native` is used as a Git dependency. In that scenario, the dependencies look like this:
 
-```
+```elixir
 # cmark_native/mix.exs
 defp deps do
   Mix.target(...)
@@ -46,10 +46,10 @@ Unfortunately this approach would not work when publishing to Hex at the moment.
 ```elixir
 # cmark_native/mix.exs
 defp deps do
-  {:cmark_native, ">= 0.0.0", targets: [:darwin_aarch64]},
-  {:cmark_native, ">= 0.0.0", targets: [:darwin_x86_64]},
-  {:cmark_native, ">= 0.0.0", targets: [:linux_aarch64]},
-  {:cmark_native, ">= 0.0.0", targets: [:linux_x86_64]}
+  {:cmark_native_darwin_aarch64, ">= 0.0.0", targets: [:darwin_aarch64]},
+  {:cmark_native_darwin_x86_64, ">= 0.0.0", targets: [:darwin_x86_64]},
+  {:cmark_native_linux_aarch64, ">= 0.0.0", targets: [:linux_aarch64]},
+  {:cmark_native_linux_x86_64, ">= 0.0.0", targets: [:linux_x86_64]}
 end
 ```
 
