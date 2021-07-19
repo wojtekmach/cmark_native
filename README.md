@@ -5,34 +5,55 @@ A proof-of-concept, drop-in replacement for [cmark.ex](https://github.com/asaaki
 ## Usage
 
 ```elixir
-iex> Mix.install([{:cmark_native, github: "wojtekmach/cmark_native"}])
+iex> Mix.install([{:cmark_native, github: "wojtekmach/cmark_native", sparse: "cmark_native"}])
 iex> Cmark.to_html("*Hello*")
 "<p><em>Hello</em></p>\n"
 ```
 
 ## How it works
 
-This repository contains the CmarkNative package itself as well as a package for each supported target:
+This repository contains the CmarkNative:
 
-  * [`packages/cmark_native_darwin_aarch64`](packages/cmark_native_darwin_aarch64)
-  * [`packages/cmark_native_darwin_x86_64`](packages/cmark_native_darwin_x86_64)
-  * [`packages/cmark_native_linux_aarch64`](packages/cmark_native_linux_aarch64)
-  * [`packages/cmark_native_linux_x86_64`](packages/cmark_native_linux_x86_64)
+  * [`cmark_native`](cmark_native)
 
-Each target package contains the shared library, e.g.: <https://github.com/wojtekmach/cmark_native/blob/main/packages/cmark_native_darwin_aarch64/priv/cmark.so>.
+as well as a package for each supported target:
 
-When building `cmark_native` package, we simply pick the correct Mix target: <https://github.com/wojtekmach/cmark_native/blob/main/mix.exs#L1>.
+  * [`cmark_native_darwin_aarch64`](cmark_native_darwin_aarch64)
+  * [`cmark_native_darwin_x86_64`](cmark_native_darwin_x86_64)
+  * [`cmark_native_linux_aarch64`](cmark_native_linux_aarch64)
+  * [`cmark_native_linux_x86_64`](cmark_native_linux_x86_64)
 
-If we start publishing this to Hex we'd probably keep the monorepo:
+Each target package contains the shared library, e.g.: <https://github.com/wojtekmach/cmark_native/blob/main/cmark_native_darwin_aarch64/priv/cmark.so>.
 
-    ./
-      cmark_native/
-      cmark_native_darwin_aarch64/
-      cmark_native_darwin_x86_64/
-      cmark_native_linux_aarch64/
-      cmark_native_linux_x86_64/
+This setup works when `cmark_native` is used as a Git dependency. In that scenario, the dependencies look like this:
 
-but of course publish each piece as a separate Hex package.
+```
+# cmark_native/mix.exs
+defp deps do
+  Mix.target(...)
+
+  {:cmark_native, github: "wojtekmach/cmark_native_darwin_aarch64", targets: [:darwin_aarch64]},
+  {:cmark_native, github: "wojtekmach/cmark_native_darwin_x86_64", targets: [:darwin_x86_64]},
+  {:cmark_native, github: "wojtekmach/cmark_native_linux_aarch64", targets: [:linux_aarch64]},
+  {:cmark_native, github: "wojtekmach/cmark_native_linux_x86_64", targets: [:linux_x86_64]}
+end
+```
+
+Mix would fetch `cmark_native`, look at the dependencies, and only pick target specific package to fetch next.
+
+Unfortunately this approach would not work when publishing to Hex at the moment. We'd end up with this:
+
+```elixir
+# cmark_native/mix.exs
+defp deps do
+  {:cmark_native, ">= 0.0.0", targets: [:darwin_aarch64]},
+  {:cmark_native, ">= 0.0.0", targets: [:darwin_x86_64]},
+  {:cmark_native, ">= 0.0.0", targets: [:linux_aarch64]},
+  {:cmark_native, ">= 0.0.0", targets: [:linux_x86_64]}
+end
+```
+
+However Hex does not have support for Mix targets. It would simply make it so `cmark_native` depends on all of these which is not what we want.
 
 ## License
 
