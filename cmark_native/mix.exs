@@ -44,8 +44,8 @@ defmodule CmarkNative.MixProject do
     targets = [
       :darwin_aarch64,
       :darwin_x86_64,
-      :linux_aarch64,
-      :linux_x86_64
+      # :linux_aarch64,
+      # :linux_x86_64
     ]
 
     for target <- targets do

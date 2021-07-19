@@ -1,0 +1,4 @@
+%{
+  "cmark_native_darwin_aarch64": {:hex, :cmark_native_darwin_aarch64, "0.1.0", "12fdfc149ff51283ad21a8065e1dce49aae117585f1e0f423efa3033f5c1450b", [:mix], [], "hexpm:hex", "42eba842d4443d304c1e98225decfe37f033a746d3ca625383b55d00eaf4f3f8"},
+  "cmark_native_darwin_x86_64": {:hex, :cmark_native_darwin_x86_64, "0.1.0", "99194a0a348d0dbe1d25a36855e3ce6f1a398407e123e771dc37910c70f51160", [:mix], [], "hexpm:hex", "d412e25b49ede8d8c34462eda1aa708c5b49ae91ed01bed036feb4dd6a3fff57"},
+}
